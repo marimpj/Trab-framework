@@ -1,8 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 import { Button, Form, Input, Card } from 'antd'
+import Head from './Header'
+import { Link } from 'react-router-dom'
+import{Layout} from'antd'
 
-export default function Cadastro(props) {
+const{ Header} = Layout;
+
+export default function Login(props) {
 
     const enviar = (dados) => {
         console.log(dados)
@@ -11,9 +16,18 @@ export default function Cadastro(props) {
         console.log(err)
         }
 
-    return <div style={{display:"flex", justifyContent:'center', marginTop: "30px"}}>
+    return (
+        <div>
+        <Head/>
+        <div style={{textAlign:"center"}}>
+            <Link to="/">
+                <Button style={{marginTop: "15px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Voltar</Button>
+            </Link>
+        </div>
+    <div style={{display:"flex", justifyContent:'center', marginTop: "10px"}}>
         <Card>
-            <Form name='cadastro' onFinish={enviar} onFinishFailed={erro}>
+        <Header style={{color: "black", background: "white", fontSize:"20px", textAlign:"center", marginTop:"-15px", marginBottom:"25px"}} >Crie sua conta</Header>
+            <Form name='login' onFinish={enviar} onFinishFailed={erro}>
             <Form.Item style={{color: "white"}} label="Usuário" name="username"
             rules={[ { required: true, message: 'Informe seu nome de usuário' } ]}>
             <Input />
@@ -22,10 +36,18 @@ export default function Cadastro(props) {
             rules={[ { required: true, message: 'Informe sua senha' } ]}>
             <Input />
             </Form.Item>
+            <Form.Item label="Meta" name="meta"
+            rules={[ { required: true, message: 'Informe sua meta' } ]}>
+            <Input />
+            </Form.Item>
             <Form.Item>
-            <Button  type="primary" ghost htmlType="submit"> Enviar </Button>
+            <Link to="/extrato">
+                <Button  type="primary" ghost htmlType="submit"> Criar </Button>
+            </Link>
             </Form.Item>
             </Form>
         </Card>
         </div>
+        </div>
+    )
     }

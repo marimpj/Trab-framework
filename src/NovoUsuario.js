@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Button } from 'antd'
+import { Link } from 'react-router-dom'
 
 export default function NovoUsuario(props) {
 
@@ -16,7 +17,9 @@ export default function NovoUsuario(props) {
     }
 
     return <div>
-        <Button style={{marginTop: "30px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"50px", fontSize: "150%"}} onClick={ criar } type="primary" ghost>Criar Usuario</Button>
+        <Link to="/cadastro">
+            <Button style={{marginTop: "30px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"50px", fontSize: "150%"}} onClick={ criar } type="primary" ghost>Criar Usuario</Button>
+        </Link>
     </div>
 
 }
