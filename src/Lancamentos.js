@@ -41,9 +41,11 @@ export default function Lancamentos(props) {
                 <Input />
                 </Form.Item>
                 <Form.Item>
-                <Link to="/extrato">
-                    <Button  type="primary" ghost htmlType="submit"> Enviar </Button>
-                </Link>
+                <div style={{display:"flex", justifyContent:'center'}}>
+                    <Link to="/extrato">
+                        <Button  type="primary" ghost htmlType="submit"> Enviar </Button>
+                    </Link>
+                </div>
                 </Form.Item>
                 </Form>
             </Card>

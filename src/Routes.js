@@ -4,7 +4,6 @@ import Formulario from './FormularioLogin';
 import FormularioLogin from './Formulario';
 import Lancamentos from './Lancamentos';
 import Home from './Home';
-import Extrato from './Extrato';
 import Gastos from './Extrato';
 
 
@@ -16,7 +15,7 @@ export default function Routes () {
           <Route path="/cadastro" component = {FormularioLogin}></Route>
           <Route path="/login" component = {Formulario}></Route>
           <Route path="/lancamentos" component = {Lancamentos}></Route>
-          <Route path="/extrato" exact component = {Extrato}></Route>
+          <Route path="/extrato" exact component = {Gastos}></Route>
         </Switch>
       </BrowserRouter>
     )

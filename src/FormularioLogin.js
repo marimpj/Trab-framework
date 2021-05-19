@@ -38,9 +38,11 @@ export default function Cadastro(props) {
             <Input />
             </Form.Item>
             <Form.Item>
-            <Link to="/extrato">    
-                <Button  type="primary" ghost htmlType="submit"> Entrar </Button>
-            </Link>
+            <div style={{display:"flex", justifyContent:'center'}}>
+                <Link to="/extrato">    
+                    <Button  type="primary" ghost htmlType="submit"> Entrar </Button>
+                </Link>
+            </div>
             </Form.Item>
             </Form>
         </Card>

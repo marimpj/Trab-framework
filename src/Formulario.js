@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Button, Form, Input, Card } from 'antd'
+import { Button, Form, Input, Card, AutoComplete } from 'antd'
 import Head from './Header'
 import { Link } from 'react-router-dom'
 import{Layout} from'antd'
@@ -41,9 +41,11 @@ export default function Login(props) {
             <Input />
             </Form.Item>
             <Form.Item>
-            <Link to="/extrato">
-                <Button  type="primary" ghost htmlType="submit"> Criar </Button>
-            </Link>
+            <div style={{display:"flex", justifyContent:'center'}}>
+                <Link to="/extrato">
+                    <Button  type="primary" ghost htmlType="submit"> Criar </Button>
+                </Link>
+            </div>
             </Form.Item>
             </Form>
         </Card>
