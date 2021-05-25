@@ -85,45 +85,51 @@ const columns1 = [
 
 export default class Gastos extends React.Component {
 
+    // const listarGastos = () => {
+
+    //     let URL = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto?username=edson"
+    //     axios.get(URL).then((resp) => {
+            
+    //         console.log(resp.data)
+    //         resp.data.gastos.forEach((item, idx) => console.log(item.categoria, Date(item.data)))
+
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+
+    // }
+
+    // const apagar = () => {
+
+    //     axios.delete(url_novo + "?id=b3dc39952eb0ef0386763344c5c4bdc7&rev=1-0612ec1b12e30121942cd6f4587ac4ed").then((resp) => {
+    //         console.log(resp.data)
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     })
+    // }
+
     render() {
         return (
             <div>
-            <Head/>
-            <div style={{textAlign:"center"}}>
-                <Link to="/lancamentos">
-                    <Button style={{marginTop: "10px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Fazer um lançamento</Button>
-                </Link>
-            </div>
-            <div style={{display:"flex", justifyContent:'center', marginTop: "30px"}}>
-                <Card>
-                <h1 style={{color: "black", background: "white", fontSize:"20px", textAlign:"center", marginTop:"-15px", marginBottom:"25px"}} >Extrato</h1>
-                    <Table dataSource={dataSource0} columns={columns0} pagination={false} />
-                    <Table dataSource={dataSource1} columns={columns1} pagination={false} />
-                </Card>
-            </div>
+                <Head/>
+                <div style={{textAlign:"center"}}>
+                    <Link to="/lancamentos">
+                        <Button style={{marginTop: "10px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Fazer um lançamento</Button>
+                    </Link>
+                </div>
+                <div style={{display:"flex", justifyContent:'center', marginTop: "30px"}}>
+                    <Card>
+                    <h1 style={{color: "black", background: "white", fontSize:"20px", textAlign:"center", marginTop:"-15px", marginBottom:"25px"}} >Extrato</h1>
+                        <Table dataSource={dataSource0} columns={columns0} pagination={false} />
+                        <Table dataSource={dataSource1} columns={columns1} pagination={false} />
+                    </Card>
+                </div>
+                <div style={{textAlign:"center", color: "white"}}>
+                    <p></p>
+                    <p>Meta definida: X</p>
+                    <p>Faltam X para atingir a meta</p>
+                </div>
             </div>
         );
     }
-    
-    // return <div style={{display:"flex", justifyContent:'center', marginTop: "30px"}}>
-    //     <Card>
-    //         {/* <Form name='lancamentos' onFinish={enviar} onFinishFailed={erro}>
-    //             <Form.Item style={{color: "white"}} label="Valor" name="valor"
-    //             rules={[ { required: true, message: 'Informe o cadastro' } ]}>
-    //                 <Input />
-    //             </Form.Item>
-    //             <Form.Item label="Categoria" name="category"
-    //             rules={[ { required: true, message: 'Informe a categoria' } ]}>
-    //                 <Input />
-    //             </Form.Item>
-    //             <Form.Item label="Data" name="data"
-    //             rules={[ { required: true, message: 'Informe a data' } ]}>
-    //                 <Input />
-    //             </Form.Item>
-    //             <Form.Item>
-    //                 <Button  type="primary" ghost htmlType="submit"> Enviar </Button>
-    //             </Form.Item>
-    //         </Form> */}
-    //     </Card>
-    // </div>
 }

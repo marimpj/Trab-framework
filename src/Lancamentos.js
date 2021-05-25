@@ -9,6 +9,19 @@ const{ Header} = Layout;
 
 export default function Lancamentos(props) {
 
+    const url_novo = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto"
+
+    const criar = () => {
+
+        let timestamp = new Date().getTime()
+        let params = {username: "edson", categoria: "Transporte", valor: 50, data: timestamp}
+        axios.post(url_novo, params).then((resp) => {
+            console.log(resp.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     const enviar = (dados) => {
         console.log(dados)
         }
@@ -43,7 +56,7 @@ export default function Lancamentos(props) {
                 <Form.Item>
                 <div style={{display:"flex", justifyContent:'center'}}>
                     <Link to="/extrato">
-                        <Button  type="primary" ghost htmlType="submit"> Enviar </Button>
+                        <Button  type="primary" ghost htmlType="submit" onClick={ criar }> Enviar </Button>
                     </Link>
                 </div>
                 </Form.Item>

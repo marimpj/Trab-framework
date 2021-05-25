@@ -7,7 +7,19 @@ import{Layout} from'antd'
 
 const{ Header} = Layout;
 
-export default function Cadastro(props) {
+export default function Login(props) {
+
+    const url_login = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/login"
+
+    const login = (params) => {
+        //let params = {username: "edson", senha: "123"}
+        console.log(params)
+        axios.post(url_login, params).then((resp) => {
+            console.log(resp.data)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
     const enviar = (dados) => {
         console.log(dados)
@@ -40,7 +52,7 @@ export default function Cadastro(props) {
             <Form.Item>
             <div style={{display:"flex", justifyContent:'center'}}>
                 <Link to="/extrato">    
-                    <Button  type="primary" ghost htmlType="submit"> Entrar </Button>
+                    <Button  type="primary" ghost htmlType="submit" onClick={ login }> Entrar </Button>
                 </Link>
             </div>
             </Form.Item>
