@@ -24,17 +24,14 @@ export default function Cadastro(props) {
         console.log(dados)
         axios.post(url_novo, dados).then((resp) => {
             console.log(resp.data)
-            console.log("A")
         })
         .catch((err) => {
             console.log(err)
-            console.log("B")
         })
     }
 
     const erro = (err) => {
         console.log(err)
-        console.log("C")
     }
 
     return (
