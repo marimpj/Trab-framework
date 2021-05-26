@@ -2,8 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import { Button, Form, Input, Card } from 'antd'
 import Head from './Header'
-import { Link } from 'react-router-dom'
-import{Layout} from'antd'
+import { Link, useHistory } from 'react-router-dom'
+import { Layout } from'antd'
 
 const{ Header} = Layout;
 
@@ -11,22 +11,27 @@ export default function Login(props) {
 
     const url_login = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/login"
 
-    const login = (params) => {
-        //let params = {username: "edson", senha: "123"}
-        console.log(params)
-        axios.post(url_login, params).then((resp) => {
+    const historyLogin = useHistory()
+
+    const enviar = (dados) => {
+        console.log(dados)
+        axios.post(url_login, dados).then((resp) => {
             console.log(resp.data)
-        }).catch((err) => {
+            if (resp.data.valido == true) {
+                localStorage.setItem("username", dados.username)
+                historyLogin.push("/extrato")
+            } else {
+                alert('Login inválido!')
+            }
+        })
+        .catch((err) => {
             console.log(err)
         })
     }
 
-    const enviar = (dados) => {
-        console.log(dados)
-        }
     const erro = (err) => {
         console.log(err)
-        }
+    }
 
     return (
         <div>
@@ -45,15 +50,13 @@ export default function Login(props) {
             rules={[ { required: true, message: 'Informe seu nome de usuário' } ]}>
             <Input />
             </Form.Item>
-            <Form.Item label="Senha" name="password" type="password" 
+            <Form.Item label="Senha" name="senha" type="password" 
             rules={[ { required: true, message: 'Informe sua senha' } ]}>
-            <Input />
+            <Input type="password" />
             </Form.Item>
             <Form.Item>
-            <div style={{display:"flex", justifyContent:'center'}}>
-                <Link to="/extrato">    
-                    <Button  type="primary" ghost htmlType="submit" onClick={ login }> Entrar </Button>
-                </Link>
+            <div style={{display:"flex", justifyContent:'center'}}>   
+                <Button  type="primary" ghost htmlType="submit">Entrar</Button>
             </div>
             </Form.Item>
             </Form>
@@ -61,4 +64,4 @@ export default function Login(props) {
         </div>
         </div>
     )
-    }
+}

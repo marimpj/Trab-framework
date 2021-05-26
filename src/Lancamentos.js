@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Button, Form, Input, Card } from 'antd'
 import { Link } from 'react-router-dom'
-import{Layout} from'antd'
+import{ Layout, Select, Option } from'antd'
 import Head from './Header'
 
 const{ Header} = Layout;
@@ -11,23 +11,28 @@ export default function Lancamentos(props) {
 
     const url_novo = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto"
 
-    const criar = () => {
+    const { Option } = Select;
+        function handleChange(value) {
+        console.log(`selected ${value}`);
+    }
 
-        let timestamp = new Date().getTime()
-        let params = {username: "edson", categoria: "Transporte", valor: 50, data: timestamp}
-        axios.post(url_novo, params).then((resp) => {
+    const enviar = (dados) => {
+        let gasto = new Object();
+        gasto.username = localStorage.getItem("username")
+        gasto.timestamp = new Date().getTime()
+        gasto.categoria = dados.categoria
+        gasto.valor = dados.valor
+        let jsonString = JSON.stringify(gasto);
+        axios.post(url_novo, jsonString).then((resp) => {
             console.log(resp.data)
         }).catch((err) => {
             console.log(err)
         })
     }
 
-    const enviar = (dados) => {
-        console.log(dados)
-        }
     const erro = (err) => {
         console.log(err)
-        }
+    }
 
     return(
         <div>
@@ -45,19 +50,17 @@ export default function Lancamentos(props) {
                 rules={[ { required: true, message: 'Informe o cadastro' } ]}>
                 <Input />
                 </Form.Item>
-                <Form.Item label="Categoria" name="category"
+                <Form.Item label="Categoria" name="categoria"
                 rules={[ { required: true, message: 'Informe a categoria' } ]}>
-                <Input />
-                </Form.Item>
-                <Form.Item label="Data" name="data"
-                rules={[ { required: true, message: 'Informe a data' } ]}>
-                <Input />
+                <Select defaultValue="alimentacao" style={{ width: 120 }} onChange={handleChange}>
+                <Option value="alimentacao">Alimentação</Option>
+                <Option value="lazer">Lazer</Option>
+                <Option value="transporte">Transporte</Option>
+                </Select>
                 </Form.Item>
                 <Form.Item>
                 <div style={{display:"flex", justifyContent:'center'}}>
-                    <Link to="/extrato">
-                        <Button  type="primary" ghost htmlType="submit" onClick={ criar }> Enviar </Button>
-                    </Link>
+                    <Button  type="primary" ghost htmlType="submit">Enviar</Button>
                 </div>
                 </Form.Item>
                 </Form>

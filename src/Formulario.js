@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Button, Form, Input, Card, AutoComplete, Space, Slider } from 'antd'
 import Head from './Header'
-import { Link, useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import{ Layout } from'antd'
 
 const{ Header } = Layout;
@@ -11,13 +11,13 @@ export default function Cadastro(props) {
 
     const url_novo = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/usuario"
 
-    const historyLogin = useHistory()
+    const historyCadastro = useHistory()
 
     const enviar = (dados) => {
         axios.post(url_novo, dados).then((resp) => {
             console.log(resp.data)
             if (resp.data.ok == true) {
-                historyLogin.push('/extrato')
+                historyCadastro.push('/extrato')
             } else {
                 alert(`${resp.data.erro}: Alguma informação inserida encontra-se incorreta!`)
             }
