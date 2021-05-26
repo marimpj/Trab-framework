@@ -2,28 +2,25 @@ import React from 'react'
 import axios from 'axios'
 import { Button, Form, Input, Card, AutoComplete } from 'antd'
 import Head from './Header'
-import { Link } from 'react-router-dom'
-import{Layout} from'antd'
+import { Link, useHistory } from 'react-router-dom'
+import{ Layout } from'antd'
 
-const{ Header} = Layout;
+const{ Header } = Layout;
 
 export default function Cadastro(props) {
 
     const url_novo = "https://7c2bad50.us-south.apigw.appdomain.cloud/api/usuario"
 
-    // const criar = (dados) => {
-    //     console.log(dados)
-    //     axios.post(url_novo, dados).then((resp) => {
-    //         console.log(resp.data)
-    //     }).catch((err) => {
-    //         console.log(err)
-    //     })
-    // }
+    const historyLogin = useHistory()
 
     const enviar = (dados) => {
-        console.log(dados)
         axios.post(url_novo, dados).then((resp) => {
             console.log(resp.data)
+            if (resp.data.ok == true) {
+                historyLogin.push('/extrato')
+            } else {
+                alert(`${resp.data.erro}: Alguma informação inserida encontra-se incorreta!`)
+            }
         })
         .catch((err) => {
             console.log(err)
@@ -52,7 +49,7 @@ export default function Cadastro(props) {
                         </Form.Item>
                         <Form.Item label="Senha" name="senha" type="password" 
                             rules={[ { required: true, message: 'Informe sua senha' } ]}>
-                            <Input />
+                            <Input type="password" />
                         </Form.Item>
                         <Form.Item label="Meta" name="meta"
                             rules={[ { required: true, message: 'Informe sua meta' } ]}>
