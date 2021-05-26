@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Card, Table, Button } from 'antd'
+import { Card, Table, Button, Progress } from 'antd'
 import Head from './Header'
 import { Link } from 'react-router-dom'
 
@@ -124,10 +124,11 @@ export default class Gastos extends React.Component {
                         <Table dataSource={dataSource1} columns={columns1} pagination={false} />
                     </Card>
                 </div>
-                <div style={{textAlign:"center", color: "white"}}>
-                    <p></p>
-                    <p>Meta definida: X</p>
-                    <p>Faltam X para atingir a meta</p>
+                <div style={{display:"flex", justifyContent:'center', color: "white", marginTop: "20px", fontWeight:"bold", fontSize:"115%"}}>Valor alcançado da meta:</div>
+                <div style={{display:"flex", justifyContent:'center', color: "white"}}>
+                    <div style={{padding: "30px" }}>
+                        <Progress type="circle" percent={30} />
+                    </div>
                 </div>
             </div>
         );
