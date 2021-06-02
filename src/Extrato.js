@@ -43,7 +43,11 @@ export default function Gastos(props) {
     const apagar = (id, rev) => {
         axios.delete(url_default + `?id=${id}&rev=${rev}`).then((resp) => {
             console.log(resp.data)
-        }).catch((err) => {
+        })
+        .then(() => {
+            listarGastos()
+        })
+        .catch((err) => {
             console.log(err)
         })
     }
