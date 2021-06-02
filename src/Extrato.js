@@ -88,21 +88,10 @@ export default function Gastos(props) {
             title: '',
             dataIndex: 'excluir',
             key: 'excluir',
-            render: () => (
+            render: (text, record) => (
                 <button onClick={(event) => {
-                    let target = event.currentTarget
-                    let parent = target.parentElement
-                    parent = parent.parentElement
-                    parent = parent.dataset['rowKey']
-                    let id
-                    let rev
-                    for (let i = 0; i < itemsList.length; i++) {
-                        if (parent == itemsList[i]['key']) {
-                            id = itemsList[i]['id']
-                            rev = itemsList[i]['rev']
-                            break
-                        }
-                    }
+                    let id = record.id
+                    let rev = record.dev
                     apagar(id, rev)
                 }}>
                   Excluir
