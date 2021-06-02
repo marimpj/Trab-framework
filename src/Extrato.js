@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 export default function Gastos(props) {
 
     let url_novo = `https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto?username=${localStorage.getItem("username")}`
+    let url_default = 'https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto'
 
     const [itemsList, setitemsList] = useState([])
 
@@ -20,6 +21,8 @@ export default function Gastos(props) {
 
             resp.data.gastos.forEach((item, idx) => {
                 let single = {
+                    id: `${item._id}`,
+                    rev: `${item._rev}`,
                     key: `${idx}`,
                     data: `${new Date(item.data)}`,
                     categoria: `${item.categoria}`,
@@ -37,8 +40,8 @@ export default function Gastos(props) {
         })
     }
 
-    const apagar = () => {
-        axios.delete(url_novo + "?id=b3dc39952eb0ef0386763344c5c4bdc7&rev=1-0612ec1b12e30121942cd6f4587ac4ed").then((resp) => {
+    const apagar = (id, rev) => {
+        axios.delete(url_default + `?id=${id}&rev=${rev}`).then((resp) => {
             console.log(resp.data)
         }).catch((err) => {
             console.log(err)
@@ -82,7 +85,22 @@ export default function Gastos(props) {
             dataIndex: 'excluir',
             key: 'excluir',
             render: () => (
-                <button onClick={()=> console.log("Funcionando")}>
+                <button onClick={(event) => {
+                    let target = event.currentTarget
+                    let parent = target.parentElement
+                    parent = parent.parentElement
+                    parent = parent.dataset['rowKey']
+                    let id
+                    let rev
+                    for (let i = 0; i < itemsList.length; i++) {
+                        if (parent == itemsList[i]['key']) {
+                            id = itemsList[i]['id']
+                            rev = itemsList[i]['rev']
+                            break
+                        }
+                    }
+                    apagar(id, rev)
+                }}>
                   Excluir
                 </button>
             ),
