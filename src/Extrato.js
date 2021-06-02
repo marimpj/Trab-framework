@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Card, Table, Button, Progress } from 'antd'
 import Head from './Header'
@@ -8,21 +8,26 @@ export default function Gastos(props) {
 
     let url_novo = `https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto?username=${localStorage.getItem("username")}`
 
-    const itemsList = []
+    const [itemsList, setitemsList] = useState([])
+
+    useEffect(() => {
+         listarGastos()
+    }, [])
 
     const listarGastos = () => {
+        let temp = []
         axios.get(url_novo).then((resp) => {
 
             resp.data.gastos.forEach((item, idx) => {
                 let single = {
                     key: `${idx}`,
-                    data: `${Date(item.data)}`,
+                    data: `${new Date(item.data)}`,
                     categoria: `${item.categoria}`,
                     valor: `R$ ${item.valor}`
                 }
-                itemsList.push(single)
+                temp.push(single)
             })
-
+            setitemsList(temp)
         })
         .then(() => {
             console.log(itemsList)
@@ -40,7 +45,6 @@ export default function Gastos(props) {
         })
     }
     
-    listarGastos()
 
     const dataSource0 = [
         {
@@ -120,9 +124,6 @@ export default function Gastos(props) {
             key: 'valor',
         },
     ];
-
-    console.log(dataSource0)
-    console.log(itemsList)
 
     return (
         <div>
