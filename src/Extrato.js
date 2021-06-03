@@ -53,19 +53,21 @@ export default function Gastos(props) {
     }
 
     const listarTotalAlimentacao = () => {
+        let soma = 0;
+        let teste = []
         axios.get(url_novo).then((resp) => {
             resp.data.gastos.forEach((item, idx) => {
-                let soma = 0
-                let teste = []
 
-                for (let i; i <itemsList.length; i++){
-                    if(item.categoria === "alimentacao"){
-                        teste[i] = parseInt(item[i].valor);      
-                        soma += parseInt(teste[i]);
-                    }   
+                if (item.categoria === "alimentacao") {
+                    teste.push(parseInt(item.valor));
                 }
-            return soma
             })
+        })
+        .then(() => {
+            for (let i = 0; i < teste.length; i++) {
+                soma += teste[i]
+            }
+            return soma
         })
     }
     
@@ -131,7 +133,9 @@ export default function Gastos(props) {
         {
           key: '3',
           gasto: 'Total gasto em alimentação:',
-          valor: listarTotalAlimentacao()
+          valor: useEffect(() => {
+                    listarTotalAlimentacao()
+                })
         },
         {
           key: '4',
