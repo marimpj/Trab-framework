@@ -222,8 +222,8 @@ export default function Gastos(props) {
             </div>
             <div style={{display:"flex", justifyContent:'center', color: "white", marginTop: "20px", fontWeight:"bold", fontSize:"115%"}}>Valor alcançado da meta:</div>
             <div style={{display:"flex", justifyContent:'center', color: "white"}}>
-                <div style={{padding: "30px" }}>
-                    <Progress type="circle" percent={valoralcancado} />
+                <div style={{ padding: "30px" }}>
+                    <Progress type="circle" percent={100-valoralcancado} />
                 </div>
             </div>
         </div>
