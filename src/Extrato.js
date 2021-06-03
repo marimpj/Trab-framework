@@ -11,9 +11,21 @@ export default function Gastos(props) {
 
     const [itemsList, setitemsList] = useState([])
 
+    const [somaAlimentacao, setsomaAlimentacao] = useState(0)
+
+    const [somaTransporte, setsomaTransporte] = useState(0)
+
+    const [somaLazer, setsomaLazer] = useState(0)
+
+    const [somaGeral, setsomaGeral] = useState(0)
+
     useEffect(() => {
          listarGastos()
     }, [])
+
+    useEffect(() => {
+       somarTotal()
+   })
 
     const listarGastos = () => {
         let temp = []
@@ -52,40 +64,50 @@ export default function Gastos(props) {
         })
     }
 
-    const listarTotalAlimentacao = () => {
-        let soma = 0;
-        let teste = []
+    const somarTotal = () => {
+        let somaA = 0 
+        let testeA = []
+        let somaT = 0 
+        let testeT = []
+        let somaL = 0 
+        let testeL = []
+        let somaG = 0
+
         axios.get(url_novo).then((resp) => {
-            resp.data.gastos.forEach((item, idx) => {
+            resp.data.gastos.forEach((item) => {
 
                 if (item.categoria === "alimentacao") {
-                    teste.push(parseInt(item.valor));
+                    testeA.push(parseInt(item.valor));
+                }
+                else if (item.categoria === "transporte") {
+                    testeT.push(parseInt(item.valor));
+                }
+                else if (item.categoria === "lazer") {
+                    testeL.push(parseInt(item.valor));
                 }
             })
         })
         .then(() => {
-            for (let i = 0; i < teste.length; i++) {
-                soma += teste[i]
+            for (let i = 0; i < testeA.length; i++) {
+                somaA += testeA[i]
             }
-            return soma
+            setsomaAlimentacao(somaA)
+
+            for (let i = 0; i < testeT.length; i++) {
+                somaT += testeT[i]
+            }
+            setsomaTransporte(somaT)
+
+            for (let i = 0; i < testeL.length; i++) {
+                somaL += testeL[i]
+            }
+            setsomaLazer(somaL)  
+            
+            somaG = somaAlimentacao + somaLazer + somaTransporte
+            setsomaGeral (somaG)
         })
     }
     
-
-    const dataSource0 = [
-        {
-          key: '1' ,
-          data: '12/12/2021',
-          categoria: 'Categoria: Alimentação',
-          valor: 'R$ 35,00'
-        },
-        {
-          key: '2',
-          data: '12/12/2021',
-          categoria: 'Categoria: Lazer',
-          valor: 'R$ 35,00'
-        },
-    ];
       
     const columns0 = [
         {
@@ -110,7 +132,7 @@ export default function Gastos(props) {
             render: (text, record) => (
                 <button onClick={(event) => {
                     let id = record.id
-                    let rev = record.dev
+                    let rev = record.rev
                     apagar(id, rev)
                 }}>
                   Excluir
@@ -123,24 +145,22 @@ export default function Gastos(props) {
         {
           key: '1',
           gasto: 'Total gasto em transporte:',
-          valor: 23
+          valor: somaTransporte
         },
         {
           key: '2',
           gasto: 'Total gasto em lazer:',
-          valor: 234
+          valor: somaLazer
         },
         {
           key: '3',
           gasto: 'Total gasto em alimentação:',
-          valor: useEffect(() => {
-                    listarTotalAlimentacao()
-                })
+          valor: somaAlimentacao
         },
         {
           key: '4',
           gasto: 'Total geral:',
-          valor: 'R$ 280,00'
+          valor: somaGeral
         },
     ];
       
