@@ -51,6 +51,23 @@ export default function Gastos(props) {
             console.log(err)
         })
     }
+
+    const listarTotalAlimentacao = () => {
+        axios.get(url_novo).then((resp) => {
+            resp.data.gastos.forEach((item, idx) => {
+                let soma = 0
+                let teste = []
+
+                for (let i; i <itemsList.length; i++){
+                    if(item.categoria === "alimentacao"){
+                        teste[i] = parseInt(item[i].valor);      
+                        soma += parseInt(teste[i]);
+                    }   
+                }
+            return soma
+            })
+        })
+    }
     
 
     const dataSource0 = [
@@ -104,17 +121,17 @@ export default function Gastos(props) {
         {
           key: '1',
           gasto: 'Total gasto em transporte:',
-          valor: 'R$ 35,00'
+          valor: 23
         },
         {
           key: '2',
           gasto: 'Total gasto em lazer:',
-          valor: 'R$ 70,00'
+          valor: 234
         },
         {
           key: '3',
           gasto: 'Total gasto em alimentação:',
-          valor: 'R$ 175,00'
+          valor: listarTotalAlimentacao()
         },
         {
           key: '4',
