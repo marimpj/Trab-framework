@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Card, Table, Button, Progress } from 'antd'
 import Head from './Header'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Gastos(props) {
 
     let url_novo = `https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto?username=${localStorage.getItem("username")}`
     let url_default = 'https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto'
     let url_meta = `https://7c2bad50.us-south.apigw.appdomain.cloud/api/meta?username=${localStorage.getItem("username")}`
+
+    const historyLogin = useHistory()
 
     const [itemsList, setitemsList] = useState([])
 
@@ -118,16 +120,14 @@ export default function Gastos(props) {
     const valorAlcancado = () => {
         axios.get(url_meta).then((resp) => {
             console.log(resp.data.meta)
-                let meta = parseInt(resp.data.meta)
-                let somas = parseInt(somaGeral)
-                let valor = parseInt(meta - somas)
-                let x = (100*valor)/meta
-                console.log(x)
-                setvaloralcancado(x)
-        }
-        )
+            let meta = parseInt(resp.data.meta)
+            let somas = parseInt(somaGeral)
+            let valor = parseInt(meta - somas)
+            let x = (100*valor)/meta
+            console.log(x)
+            setvaloralcancado(x)
+        })
     }
-    console.log(valoralcancado)
       
     const columns0 = [
         {
@@ -160,6 +160,11 @@ export default function Gastos(props) {
             ),
         },
     ];
+
+    function logout() {
+        localStorage.removeItem("username")
+        historyLogin.push("/")
+    }
     
     const dataSource1 = [
         {
@@ -201,9 +206,7 @@ export default function Gastos(props) {
         <div>
             <Head/>
             <div style={{textAlign:"center"}}>
-                <Link to="/">
-                        <Button style={{marginTop: "3px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Sair da conta</Button>
-                </Link>
+                <Button style={{marginTop: "3px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} onClick={logout} type="primary" ghost>Sair da conta</Button>
             </div>
             <div style={{textAlign:"center"}}>
                 <Link to="/lancamentos">
