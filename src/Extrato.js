@@ -8,6 +8,7 @@ export default function Gastos(props) {
 
     let url_novo = `https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto?username=${localStorage.getItem("username")}`
     let url_default = 'https://7c2bad50.us-south.apigw.appdomain.cloud/api/gasto'
+    let url_meta = `https://7c2bad50.us-south.apigw.appdomain.cloud/api/meta?username=${localStorage.getItem("username")}`
 
     const [itemsList, setitemsList] = useState([])
 
@@ -19,6 +20,8 @@ export default function Gastos(props) {
 
     const [somaGeral, setsomaGeral] = useState(0)
 
+    const [valoralcancado, setvaloralcancado] = useState(0)
+
     useEffect(() => {
          listarGastos()
     }, [])
@@ -26,6 +29,10 @@ export default function Gastos(props) {
     useEffect(() => {
        somarTotal()
    })
+
+   useEffect(() => {
+        valorAlcancado()
+    })
 
     const listarGastos = () => {
         let temp = []
@@ -108,6 +115,19 @@ export default function Gastos(props) {
         })
     }
     
+    const valorAlcancado = () => {
+        axios.get(url_meta).then((resp) => {
+            console.log(resp.data.meta)
+                let meta = parseInt(resp.data.meta)
+                let somas = parseInt(somaGeral)
+                let valor = parseInt(meta - somas)
+                let x = (100*valor)/meta
+                console.log(x)
+                setvaloralcancado(x)
+        }
+        )
+    }
+    console.log(valoralcancado)
       
     const columns0 = [
         {
@@ -181,8 +201,13 @@ export default function Gastos(props) {
         <div>
             <Head/>
             <div style={{textAlign:"center"}}>
+                <Link to="/">
+                        <Button style={{marginTop: "3px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Sair da conta</Button>
+                </Link>
+            </div>
+            <div style={{textAlign:"center"}}>
                 <Link to="/lancamentos">
-                    <Button style={{marginTop: "10px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Fazer um lançamento</Button>
+                    <Button style={{marginTop: "30px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Fazer um lançamento</Button>
                 </Link>
             </div>
             <div style={{display:"flex", justifyContent:'center', marginTop: "30px"}}>
@@ -195,7 +220,7 @@ export default function Gastos(props) {
             <div style={{display:"flex", justifyContent:'center', color: "white", marginTop: "20px", fontWeight:"bold", fontSize:"115%"}}>Valor alcançado da meta:</div>
             <div style={{display:"flex", justifyContent:'center', color: "white"}}>
                 <div style={{padding: "30px" }}>
-                    <Progress type="circle" percent={30} />
+                    <Progress type="circle" percent={valoralcancado} />
                 </div>
             </div>
         </div>
