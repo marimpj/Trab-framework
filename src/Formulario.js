@@ -17,7 +17,7 @@ export default function Cadastro(props) {
         axios.post(url_novo, dados).then((resp) => {
             console.log(resp.data)
             if (resp.data.ok == true) {
-                historyCadastro.push('/extrato')
+                historyCadastro.push('/login')
             } else {
                 alert(`${resp.data.erro}: Alguma informação inserida encontra-se incorreta!`)
             }

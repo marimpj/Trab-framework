@@ -82,39 +82,35 @@ export default function Gastos(props) {
         let testeL = []
         let somaG = 0
 
-        axios.get(url_novo).then((resp) => {
-            resp.data.gastos.forEach((item) => {
+        for (let i = 0; i < itemsList.length; i++) {
 
-                if (item.categoria === "alimentacao") {
-                    testeA.push(parseInt(item.valor));
-                }
-                else if (item.categoria === "transporte") {
-                    testeT.push(parseInt(item.valor));
-                }
-                else if (item.categoria === "lazer") {
-                    testeL.push(parseInt(item.valor));
-                }
-            })
-        })
-        .then(() => {
-            for (let i = 0; i < testeA.length; i++) {
-                somaA += testeA[i]
+            if (itemsList[i]["categoria"] == "alimentacao") {
+                testeA.push(parseFloat(itemsList[i]["valor"].replace("R$ ", "")))
+            } else if (itemsList[i]["categoria"] == "transporte") {
+                testeT.push(parseFloat(itemsList[i]["valor"].replace("R$ ", "")))
+            } else if (itemsList[i]["categoria"] == "lazer") {
+                testeL.push(parseFloat(itemsList[i]["valor"].replace("R$ ", "")))
             }
-            setsomaAlimentacao(somaA)
 
-            for (let i = 0; i < testeT.length; i++) {
-                somaT += testeT[i]
-            }
-            setsomaTransporte(somaT)
+        }
 
-            for (let i = 0; i < testeL.length; i++) {
-                somaL += testeL[i]
-            }
-            setsomaLazer(somaL)  
-            
-            somaG = somaAlimentacao + somaLazer + somaTransporte
-            setsomaGeral (somaG)
-        })
+        for (let i = 0; i < testeA.length; i++) {
+            somaA += testeA[i]
+        }
+        setsomaAlimentacao(somaA)
+
+        for (let i = 0; i < testeT.length; i++) {
+            somaT += testeT[i]
+        }
+        setsomaTransporte(somaT)
+
+        for (let i = 0; i < testeL.length; i++) {
+            somaL += testeL[i]
+        }
+        setsomaLazer(somaL)  
+        
+        somaG = somaAlimentacao + somaLazer + somaTransporte
+        setsomaGeral(somaG)
     }
     
     const valorAlcancado = () => {
@@ -170,22 +166,22 @@ export default function Gastos(props) {
         {
           key: '1',
           gasto: 'Total gasto em transporte:',
-          valor: somaTransporte
+          valor: 'R$ ' + somaTransporte
         },
         {
           key: '2',
           gasto: 'Total gasto em lazer:',
-          valor: somaLazer
+          valor: 'R$ ' + somaLazer
         },
         {
           key: '3',
           gasto: 'Total gasto em alimentação:',
-          valor: somaAlimentacao
+          valor: 'R$ ' + somaAlimentacao
         },
         {
           key: '4',
           gasto: 'Total geral:',
-          valor: somaGeral
+          valor: 'R$ ' + somaGeral
         },
     ];
       
