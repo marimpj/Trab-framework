@@ -53,9 +53,6 @@ export default function Gastos(props) {
             })
             setitemsList(temp)
         })
-        .then(() => {
-            console.log(itemsList)
-        })
         .catch((err) => {
             console.log(err)
         })
@@ -115,12 +112,10 @@ export default function Gastos(props) {
     
     const valorAlcancado = () => {
         axios.get(url_meta).then((resp) => {
-            console.log(resp.data.meta)
             let meta = parseInt(resp.data.meta)
             let somas = parseInt(somaGeral)
             let valor = parseInt(meta - somas)
             let x = (100*valor)/meta
-            console.log(x)
             setvaloralcancado(x)
         })
     }
