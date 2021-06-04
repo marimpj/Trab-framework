@@ -204,18 +204,18 @@ export default function Gastos(props) {
                     <Button style={{marginTop: "30px", color: "white", border: "2px solid #FAFAFA", width:"auto", height:"auto", fontSize: "110%"}} type="primary" ghost>Fazer um lançamento</Button>
                 </Link>
             </div>
+            <div style={{display:"flex", justifyContent:'center', color: "white", marginTop: "20px", fontWeight:"bold", fontSize:"115%"}}>Valor alcançado da meta:</div>
+            <div style={{display:"flex", justifyContent:'center', color: "white"}}>
+                <div style={{ padding: "30px" }}>
+                    <Progress type="circle" percent={100-valoralcancado} />
+                </div>
+            </div>
             <div style={{display:"flex", justifyContent:'center', marginTop: "30px"}}>
                 <Card>
                 <h1 style={{color: "black", background: "white", fontSize:"20px", textAlign:"center", marginTop:"-15px", marginBottom:"25px"}} >Extrato</h1>
                     <Table dataSource={itemsList} columns={columns0} pagination={false} />
                     <Table dataSource={dataSource1} columns={columns1} pagination={false} />
                 </Card>
-            </div>
-            <div style={{display:"flex", justifyContent:'center', color: "white", marginTop: "20px", fontWeight:"bold", fontSize:"115%"}}>Valor alcançado da meta:</div>
-            <div style={{display:"flex", justifyContent:'center', color: "white"}}>
-                <div style={{ padding: "30px" }}>
-                    <Progress type="circle" percent={100-valoralcancado} />
-                </div>
             </div>
         </div>
     );
